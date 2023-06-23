@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./App.css";
 import { Navbar } from "./components/navbar/Navbar";
 import { Card } from "./components/card/Card";
-
+import { posts } from "./data";
 function App() {
   const [username, setUsername] = useState("");
   const [user, setUser] = useState("");
@@ -13,7 +13,9 @@ function App() {
       {user ? (
         <>
           <Navbar />
-          <Card />
+          {posts.map((post) => {
+            return <Card post={post} />;
+          })}
           <span className="username">{user}</span>
         </>
       ) : (
