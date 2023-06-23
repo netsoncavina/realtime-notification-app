@@ -7,26 +7,28 @@ import { posts } from "./data";
 function App() {
   const [username, setUsername] = useState("");
   const [user, setUser] = useState("");
+  const [socket, setSocket] = useState(null);
 
   useEffect(() => {
     const socket = io("http://localhost:3000");
-    socket.on("connect", () => {
-      console.log("connected");
-    });
-    socket.on("disconnect", () => {
-      console.log("disconnected");
-    });
-    console.log(socket);
+    setSocket(socket);
+    // console.log(socket);
   }, []);
+
+  useEffect(() => {
+    socket.emit("newUser", user);
+  }, [socket, user]);
 
   // console.log(user);
   return (
     <div className="container">
       {user ? (
         <>
-          <Navbar />
+          <Navbar socket={socket} />
           {posts.map((post) => {
-            return <Card post={post} />;
+            return (
+              <Card key={post.id} post={post} socket={socket} user={user} />
+            );
           })}
           <span className="username">{user}</span>
         </>
