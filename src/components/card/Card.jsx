@@ -18,7 +18,7 @@ export const Card = ({ post, socket, user }) => {
     });
   };
 
-  console.log(user, post.username);
+  // console.log(user, post.username);
 
   return (
     <div>

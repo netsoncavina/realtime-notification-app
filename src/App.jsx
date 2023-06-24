@@ -11,7 +11,7 @@ function App() {
 
   useEffect(() => {
     setSocket(io("http://localhost:3000"));
-    console.log(socket);
+    // console.log(socket);
   }, []);
 
   useEffect(() => {
