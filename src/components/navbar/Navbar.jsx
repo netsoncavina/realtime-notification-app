@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./navbar.css";
 import Notification from "../../img/notification.svg";
+import Message from "../../img/message.svg";
+import Settings from "../../img/settings.svg";
 
 export const Navbar = ({ socket }) => {
   const [notifications, setNotifications] = useState([]);
@@ -12,6 +14,10 @@ export const Navbar = ({ socket }) => {
     });
   }, [socket]);
 
+  const handleClear = () => {
+    setNotifications([]);
+    setOpen(false);
+  };
   // console.log(notifications);
   return (
     <div className="navbar">
@@ -19,7 +25,16 @@ export const Navbar = ({ socket }) => {
       <div className="icons">
         <div className="icon" onClick={() => setOpen(!open)}>
           <img src={Notification} className="iconImg" alt="" />
-          <div className="counter">2</div>
+          {notifications.length > 0 && (
+            <div className="counter">{notifications.length - 1}</div>
+          )}
+        </div>
+        <div className="icon" onClick={() => setOpen(!open)}>
+          <img src={Message} className="iconImg" alt="" />
+          {/* <div className="counter">{notifications.length}</div> */}
+        </div>
+        <div className="icon">
+          <img src={Settings} className="iconImg" alt="" />
         </div>
       </div>
       {open && (
@@ -37,6 +52,9 @@ export const Navbar = ({ socket }) => {
               </span>
             ) : null
           )}
+          <button className="nButton" onClick={handleClear}>
+            Limpar
+          </button>
         </div>
       )}
     </div>
