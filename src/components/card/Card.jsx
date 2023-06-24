@@ -10,18 +10,21 @@ export const Card = ({ post, socket, user }) => {
   const [liked, setLiked] = useState(false);
 
   const handleNotification = (type) => {
-    setLiked(!liked);
+    type === 1 && setLiked(true);
     socket.emit("sendNotification", {
       senderName: user,
-      receiverName: post.userName,
+      receiverName: post.username,
+      type,
     });
   };
+
+  console.log(user, post.username);
 
   return (
     <div>
       <div className="info">
         <img src={post.userImg} alt="" className="userImg" />
-        <span>{post.fullName}</span>
+        <span className="name">{post.fullname}</span>
       </div>
       <img src={post.postImg} alt="" className="postImg" />
       <div className="interaction">
@@ -30,7 +33,7 @@ export const Card = ({ post, socket, user }) => {
             src={HeartFilled}
             alt=""
             className="cardIcon"
-            onClick={() => handleNotification(0)}
+            onClick={() => handleNotification(1)}
           />
         ) : (
           <img

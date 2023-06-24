@@ -10,9 +10,8 @@ function App() {
   const [socket, setSocket] = useState(null);
 
   useEffect(() => {
-    const socket = io("http://localhost:3000");
-    setSocket(socket);
-    // console.log(socket);
+    setSocket(io("http://localhost:3000"));
+    console.log(socket);
   }, []);
 
   useEffect(() => {

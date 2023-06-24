@@ -1,8 +1,15 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./navbar.css";
 import Notification from "../../img/notification.svg";
 
-export const Navbar = () => {
+export const Navbar = ({ socket }) => {
+  const [notifications, setNotifications] = useState([]);
+  useEffect(() => {
+    socket.on("getNotification", (data) => {
+      setNotifications((prev) => [prev, data]);
+    });
+  }, [socket]);
+  console.log(notifications);
   return (
     <div className="navbar">
       <span className="logo">Notification App</span>
